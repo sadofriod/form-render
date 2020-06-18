@@ -49,6 +49,7 @@ declare interface IDictionary {
     };
   };
   nested?: Number;
+  defaultValue?: any;
   children?: IDictionary[];
   changeByModel?: IChangeModel;
 }

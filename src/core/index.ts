@@ -20,12 +20,17 @@ class FormRenderCore implements IFormRenderCore {
 	};
 
 	/**
-	 *
+	 * @param obj recursion dictionary
 	 * @param path Current level path
 	 * @param level Current level
 	 */
-	getRealPath(path: any, level: any) {
-		return "";
+	getRealPath = (obj: IDictionary, path: string, level: number) => {
+		const result: string[] = path.split(".");
+		if (level > 0) {
+			result.pop();
+			return result.join(".");
+		}
+		return `${path}.${obj.name}`;
 	}
 	getNodeHOF = (getNode: any, obj: IDictionary, path: string) => {
 		return getNode(this.obj, path);
@@ -42,7 +47,7 @@ class FormRenderCore implements IFormRenderCore {
 	 */
 	recursionMain = (path: string, level: number) => {
 		return this.obj.map((item, index) => {
-			const realPath = this.getRealPath(path, index);
+			const realPath = this.getRealPath(item, path, index);
 			if (this.recusionCondition(item)) {
 				return this.getSubGraphHOF(this.getSubGraph, item.children as IDictionary[], realPath, level);
 			} else {
