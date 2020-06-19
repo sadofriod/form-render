@@ -31,7 +31,7 @@ class FormRenderCore implements IFormRenderCore {
 			return result.join(".");
 		}
 		return `${path}.${obj.name}`;
-	}
+	};
 	getNodeHOF = (getNode: any, obj: IDictionary, path: string) => {
 		return getNode(this.obj, path);
 	};
