@@ -6,7 +6,7 @@ export interface ICollapseObjectProps extends BaseComponent {
     defaultValue: boolean
 }
 
-export const CollapseObject: React.SFC<ICollapseObjectProps> = (props) => {
+export const CollapseObject: React.FunctionComponent<ICollapseObjectProps> = (props) => {
     const model = props.model
     const absolutePath = props.absolutePath
 

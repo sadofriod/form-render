@@ -1,17 +1,17 @@
 import React, { ReactNode, useState } from 'react'
 import { Button } from '@blueprintjs/core'
-import { Select as BlSelect } from '@blueprintjs/select'
+import { Select as BlSelect, ISelectProps as IBlSelectProps } from '@blueprintjs/select'
 
 /**
  * @param defineValue Render Model
  */
-export interface ISelectProps extends BaseComponent {
-    items: ArrayLike<BaseComponent>
+export interface ISelectProps<T> extends BaseComponent {
+    items: Array<BaseComponent>
     defineValue: string
     disabled: boolean
 }
 
-export const Select = (props: ISelectProps) => {
+export const Select: ReactNode = (props: ISelectProps<BaseComponent>) => {
 
     const [item, setItem] = useState()
 
@@ -19,10 +19,19 @@ export const Select = (props: ISelectProps) => {
 
     const [isDisable, setDisable] = useState(props.disabled)
 
-    return (
-        <Select
-            items={props.items}
+    const BlSelectProps: IBlSelectProps<BaseComponent> = {
+        items: props.items,
+        itemRenderer: () => {
+            return null
+        },
+        onItemSelect: () => {
 
+        }
+    }
+
+    return (
+        <BlSelect
+            {...BlSelectProps}
         >
             <Button
                 icon="film"
@@ -30,6 +39,6 @@ export const Select = (props: ISelectProps) => {
                 text={item ? defineValue : "(No selection)"}
                 disabled={isDisable}
             />
-        </Select>
+        </BlSelect>
     )
 }
