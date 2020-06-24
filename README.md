@@ -9,8 +9,10 @@
   - [ ] method: get sub graph HOF
     - [x] proxy parameter
     - [ ] resolve nested
-  - [ ] method: get real path
-  - [ ] method: get value by path
+  - [x] method: get real path
+  - [x] method: get value by path
+  - [ ] method: set value by path
+  - [ ] method: generate initial result set
   - [ ] method: Trigger custom logic by data that be marked the path
 - [ ] render core component(no started)
   - [ ] get node components
