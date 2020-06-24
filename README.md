@@ -5,8 +5,6 @@
 - [ ] render core pure function(progressing 70%)
   - [x] render node type identify
   - [x] core main recursion method
-  - [x] method: get node HOF
-  - [ ] method: get sub graph HOF
     - [x] proxy parameter
     - [ ] resolve nested
   - [x] method: get real path
