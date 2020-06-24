@@ -12,6 +12,7 @@ export interface ISelectProps<T> extends BaseComponent {
 }
 
 export const Select: ReactNode = (props: ISelectProps<BaseComponent>) => {
+    const { model, absolutePath } = props
 
     const [item, setItem] = useState()
 

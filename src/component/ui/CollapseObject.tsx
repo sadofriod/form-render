@@ -7,10 +7,7 @@ export interface ICollapseObjectProps extends BaseComponent {
 }
 
 export const CollapseObject: React.FunctionComponent<ICollapseObjectProps> = (props) => {
-    const model = props.model
-    const absolutePath = props.absolutePath
-
-    const { children } = props
+    const { children, model, absolutePath } = props
 
     const [value, setValue] = useState<boolean>(props.defaultValue ? props.defaultValue : props.value)
 

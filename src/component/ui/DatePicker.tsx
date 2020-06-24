@@ -7,8 +7,8 @@ export interface IDatePickerProps extends BaseComponent {
 }
 
 export const DatePicker: ReactNode = (props: IDatePickerProps) => {
-    const model = props.model
-    const absolutePath = props.absolutePath
+    const { model, absolutePath } = props
+
     const [value, setValue] = useState<Date>(props.defaultValue ? props.defaultValue : props.value)
 
     const onValueChange = (selectedDate: Date, isUserChange: boolean): void => {
