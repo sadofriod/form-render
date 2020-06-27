@@ -2,7 +2,13 @@
 
 import React from "react";
 
-interface Props extends BaseComponent {}
+type UpdateTimer = "change" | "blur" | "focus";
+
+interface Props extends BaseComponent {
+  setValue?: any;
+  onChange?: any;
+  updateTimer?: UpdateTimer;
+}
 
 const Field: React.SFC<Props> = (props) => {
   const { model, value, absolutePath, children } = props;

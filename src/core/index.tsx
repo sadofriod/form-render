@@ -136,8 +136,6 @@ export default class Core extends React.PureComponent<CoreProps> {
     });
   };
   render() {
-    console.log(this.result);
-
     const { dictionary } = this.props;
     return <>{this.recursionMain(dictionary, "", 0, this.result)}</>;
   }
