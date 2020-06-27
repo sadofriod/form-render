@@ -2,22 +2,22 @@
 
 # Form Render development progress
 
-- [ ] render core pure function(progressing 70%)
+- [ ] render core pure function(progressing 90%)
   - [x] render node type identify
   - [x] core main recursion method
   - [x] method: get node HOF
   - [ ] method: get sub graph HOF
     - [x] proxy parameter
-    - [ ] resolve nested
-  - [ ] method: get real path
-  - [ ] method: get value by path
+    - [x] resolve nested
+  - [x] method: get real path
+  - [x] method: get value by path
   - [ ] method: Trigger custom logic by data that be marked the path
-- [ ] render core component(no started)
-  - [ ] get node components
-  - [ ] get sub-group components
-- [ ] custom component register center(no started)
+- [x] render core component(no started)
+  - [x] get node components
+  - [x] get sub-group components
+- [x] custom component register center
 - [ ] example base components package (no started)
-  - [ ] text input
+  - [x] text input
   - [ ] number input
   - [ ] date picker
   - [ ] color picker

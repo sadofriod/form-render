@@ -14,7 +14,7 @@ const testDic: IDictionary[] = [
       },
       {
         name: "sex",
-        type: "Select",
+        type: "Text",
         label: "user sex",
         defaultValue: 1,
         props: {
@@ -46,20 +46,20 @@ const testDic: IDictionary[] = [
       },
       {
         name: "voke",
-        type: "Collapse",
-        label: "user root",
+        type: "Default",
+        label: ["insert", "delete", "update", "select"],
         props: {
           mapProps: {
             isOpen: true,
           },
         },
+        nested: true,
+        defaultValue: [0, 1, 1, 0],
         children: [
           {
             name: "rootName",
-            type: "Select",
-            nested: true,
-            label: ["insert", "delete", "update", "select"],
-            defaultValue: [0, 1, 1, 0],
+            type: "Text",
+
             props: {
               mapProps: {
                 option: [
