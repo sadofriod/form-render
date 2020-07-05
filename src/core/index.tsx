@@ -4,6 +4,7 @@ import React from "react";
 import { RecursionMain } from "../@types/core";
 import Field from "../component/common/Field";
 import Fieldset from "../component/common/Fieldset";
+import getNearestNest from "../util/getNearestNest";
 
 /**
  * When dictionary children is array,use it
@@ -51,11 +52,19 @@ export default class Core extends React.PureComponent<CoreProps> {
    */
   getLeaves = (obj: IDictionary, path: string, value: any, result: any) => {
     const Leaves: any = ComponentMaps.getMap(obj.type);
-
+    const index = getNearestNest(path);
+    const label = Array.isArray(obj.label) ? obj.label[index] : obj.label;
     result[obj.name] = value;
     return (
-      <Field model={obj.name} absolutePath={path} value={value}>
-        <Leaves {...obj.props} />
+      <Field
+        key={path}
+        {...obj.props}
+        label={label}
+        model={obj.name}
+        absolutePath={path}
+        value={value}
+      >
+        <Leaves />
       </Field>
     );
   };
@@ -76,42 +85,39 @@ export default class Core extends React.PureComponent<CoreProps> {
     const model = obj.name;
     const Wapper = getWapper(obj);
     const children = obj.children || [];
-    if (
-      obj.nested &&
-      Array.isArray(obj.defaultValue) &&
-      Array.isArray(obj.label)
-    ) {
-      return obj.defaultValue.map((item, index) => {
-        if (!Array.isArray(result[obj.name])) {
-          result[obj.name] = [];
-        } else {
-          if (!result[obj.name][index]) {
-            result[obj.name][index] = {};
+    if (obj.nested && !Number.isNaN(obj.nested)) {
+      return Array(obj.nested)
+        .fill(0)
+        .map((item, index) => {
+          if (!Array.isArray(result[obj.name])) {
+            result[obj.name] = [];
+          } else {
+            if (!result[obj.name][index]) {
+              result[obj.name][index] = {};
+            }
           }
-        }
-        return (
-          <Fieldset
-            model={model}
-            key={index}
-            absolutePath={`${path}[${index}]`}
-          >
-            <Wapper {...obj.props}>
-              {recursionMain(
-                children,
-                `${path}[${index}]`,
-                level,
-                result[obj.name][index] || {},
-              )}
-            </Wapper>
-          </Fieldset>
-        );
-      });
+          return (
+            <Fieldset
+              model={model}
+              key={index}
+              absolutePath={`${path}[${index}]`}
+            >
+              <Wapper>
+                {recursionMain(
+                  children,
+                  `${path}[${index}]`,
+                  level,
+                  result[obj.name][index] || {},
+                )}
+              </Wapper>
+            </Fieldset>
+          );
+        });
     } else {
-      // setValue(this.result, path, {});
       result[obj.name] = {};
       return (
-        <Fieldset model={model} absolutePath={`${path}`}>
-          <Wapper {...obj.props}>
+        <Fieldset model={model} absolutePath={`${path}`} key={path}>
+          <Wapper>
             {recursionMain(children, `${path}`, level, result[obj.name])}
           </Wapper>
         </Fieldset>
@@ -120,7 +126,7 @@ export default class Core extends React.PureComponent<CoreProps> {
   };
   recursionMain: RecursionMain = (obj, path, level, result) => {
     level++;
-    return obj.map((item) => {
+    return obj.map((item, index) => {
       const realpath = getRealPath(path, level, item.name);
       if (Array.isArray(item.children)) {
         return this.triggerRecusion(

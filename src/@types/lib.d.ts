@@ -53,7 +53,7 @@ declare interface IDictionary {
       [key: string]: any;
     };
   };
-  nested?: boolean;
+  nested?: number;
   defaultValue?: any;
   children?: IDictionary[];
   changeByModel?: IChangeModel;

@@ -1,8 +1,12 @@
 <!-- @format -->
 
+# milestone
+
+Base usage is done
+
 # Form Render development progress
 
-- [ ] render core pure function(progressing 90%)
+- [ ] render core pure function(progressing 95%)
   - [x] render node type identify
   - [x] core main recursion method
     - [x] proxy parameter
@@ -10,7 +14,7 @@
   - [x] method: get real path
   - [x] method: get real path
   - [x] method: get value by path
-  - [x] method: set value by path
+  - [ ] method: set value by path
   - [x] method: generate initial result set
   - [ ] method: Trigger custom logic by data that be marked the path
 - [x] render core component(no started)

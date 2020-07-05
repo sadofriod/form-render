@@ -2,12 +2,28 @@
 
 import React from "react";
 
-interface Props extends BaseComponent {}
+interface Props extends BaseComponent {
+  setValue?: any;
+  children?: React.ReactElement | React.ReactElement[];
+}
 
-const Fieldset: React.SFC<Props> = (props) => {
-  const { model, absolutePath, children } = props;
+const Fieldset: any = (props: Props) => {
+  const { model, absolutePath, children, setValue, label } = props;
   const element = children as React.ReactElement;
-  return <>{React.createElement(element.type, {})}</>;
+  return !Array.isArray(element)
+    ? React.createElement(element.type, {
+        onChange: setValue,
+        children: element.props.children,
+        label: label,
+      })
+    : element.map((item, index) =>
+        React.createElement(item.type, {
+          onChange: setValue,
+          key: index,
+          children: item.props.children,
+          label: label,
+        }),
+      );
 };
 
 export default Fieldset;

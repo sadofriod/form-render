@@ -47,19 +47,19 @@ const testDic: IDictionary[] = [
       {
         name: "voke",
         type: "Default",
-        label: ["insert", "delete", "update", "select"],
+        label: "user root",
         props: {
           mapProps: {
             isOpen: true,
           },
         },
-        nested: true,
-        defaultValue: [0, 1, 1, 0],
+        nested: 4,
         children: [
           {
             name: "rootName",
             type: "Text",
-
+            label: ["insert", "delete", "update", "select"],
+            defaultValue: [0, 1, 1, 0],
             props: {
               mapProps: {
                 option: [
