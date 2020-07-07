@@ -34,15 +34,21 @@ const initValue = {
 
 function App() {
 	const [state, setState] = useState<any>();
+	const [dic, setDic] = useState<IDictionary[]>(dictionary);
 	return (
 		<div className="App">
-			<div style={{ flex: 1 }}>
+			<div className="left">
+				<h3>结果集</h3>
 				<pre suppressContentEditableWarning={true} contentEditable={true} style={{ height: "100%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>
 					{JSON.stringify(state, null, 2)}
 				</pre>
 			</div>
-			<div style={{ flex: 1 }}>
-				<Core onChange={setState} value={initValue} dictionary={dictionary} />
+			<div className="center">
+				<h3>表单结构预览</h3>
+				<Core onChange={setState} value={initValue} dictionary={dic} />
+			</div>
+			<div className="right">
+				<h3>可选表单组件</h3>
 			</div>
 		</div>
 	);
