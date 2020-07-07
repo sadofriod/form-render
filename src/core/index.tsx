@@ -6,6 +6,7 @@ import Field from "../component/common/Field";
 import Fieldset from "../component/common/Fieldset";
 import getNearestNest from "../util/getNearestNest";
 import setValueByModel from "../util/setValueByModel";
+import getValueByModel from "../util/getValueByModel";
 
 /**
  * When dictionary children is array,use it
@@ -38,35 +39,38 @@ interface CoreProps {
 	getDataTime?: "change" | "blur"; //Getting updated data when time equal the value
 	dictionary: IDictionary[]; // Form dictionary
 	onChange?: any; //custom event
+	value?: any;
 }
-
-const getRealValue = (value: string) => {};
 
 export default class Core extends React.PureComponent<CoreProps> {
 	componentDidMount() {
-		// const { dictionary } = this.props;
-		// console.log(this.result);
+		this.setState(this.result);
 		this.props.onChange(this.result);
 	}
-	// componentDidUpdate(prevStat: any) {
-	// 	console.log(prevStat);
-	// }
-	result: any = {};
+
+	result: any = Object.freeze(this.props.value) || {};
 	/**
 	 * When dictionary children isn't array,use it
 	 * @param obj sub form dictionary
 	 * @param path A absoulte path from current recursion stack without model;
 	 * @param value form item value
 	 */
-	getLeaves = (obj: IDictionary, path: string, value: any, result: any) => {
+	getLeaves = (obj: IDictionary, path: string, result: any) => {
 		const Leaves: any = ComponentMaps.getMap(obj.type);
 		const index = getNearestNest(path);
 		const label = Array.isArray(obj.label) ? obj.label[index] : obj.label;
 		const defaultValue = Array.isArray(obj.defaultValue) ? obj.defaultValue[index] : obj.label;
-		result[obj.name] = defaultValue;
-		// this.setValue(obj.defaultValue,path);
+		if (!result[obj.name]) result[obj.name] = defaultValue;
 		return (
-			<Field key={path} {...obj.props} setValue={(val: any) => this.setValue(val, path)} label={label} model={obj.name} absolutePath={path} value={value || defaultValue}>
+			<Field
+				key={path}
+				{...obj.props}
+				setValue={(val: any) => this.setValue(val, path)}
+				label={label}
+				model={obj.name}
+				absolutePath={path}
+				value={(this.state && getValueByModel(path, this.state)) || ""}
+			>
 				<Leaves />
 			</Field>
 		);
@@ -74,7 +78,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 
 	setValue = (val: any, path: string) => {
 		this.setState(
-			(data) => setValueByModel(this.state || this.result, path, val),
+			(data) => setValueByModel(data, path, val),
 			() => this.props.onChange(this.state)
 		);
 	};
@@ -108,7 +112,9 @@ export default class Core extends React.PureComponent<CoreProps> {
 					);
 				});
 		} else {
-			result[obj.name] = {};
+			if (!result[obj.name]) {
+				result[obj.name] = {};
+			}
 			return (
 				<Fieldset model={model} absolutePath={`${path}`} key={path}>
 					<Wapper>{recursionMain(children, `${path}`, level, result[obj.name])}</Wapper>
@@ -123,7 +129,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 			if (Array.isArray(item.children)) {
 				return this.triggerRecusion(item, this.recursionMain, realpath, level, result);
 			} else {
-				return this.getLeaves(item, realpath, "", result);
+				return this.getLeaves(item, realpath, result);
 			}
 		});
 	};

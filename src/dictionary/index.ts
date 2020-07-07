@@ -59,7 +59,7 @@ const testDic: IDictionary[] = [
 						name: "rootName",
 						type: "Text",
 						label: ["insert", "delete", "update", "select"],
-						defaultValue: [0, 1, 1, 0],
+						defaultValue: ["n", "y", "y", "n"],
 						props: {
 							mapProps: {
 								option: [
