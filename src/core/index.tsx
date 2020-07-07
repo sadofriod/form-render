@@ -6,6 +6,7 @@ import Field from "../component/common/Field";
 import Fieldset from "../component/common/Fieldset";
 import getNearestNest from "../util/getNearestNest";
 import setValueByModel from "../util/setValueByModel";
+import getValueByModel from "../util/getValueByModel";
 
 /**
  * When dictionary children is array,use it
@@ -38,33 +39,32 @@ interface CoreProps {
   getDataTime?: "change" | "blur"; //Getting updated data when time equal the value
   dictionary: IDictionary[]; // Form dictionary
   onChange?: any; //custom event
+  value?: any;
 }
 
 export default class Core extends React.PureComponent<CoreProps> {
   componentDidMount() {
-    // const { dictionary } = this.props;
-    // console.log(this.result);
+    this.setState(this.result);
     this.props.onChange(this.result);
   }
-  // componentDidUpdate(prevStat: any) {
-  // 	console.log(prevStat);
-  // }
-  result: any = {};
+
+  result: any = this.props.value || {};
   /**
    * When dictionary children isn't array,use it
    * @param obj sub form dictionary
    * @param path A absoulte path from current recursion stack without model;
    * @param value form item value
    */
-  getLeaves = (obj: IDictionary, path: string, value: any, result: any) => {
+  getLeaves = (obj: IDictionary, path: string, result: any) => {
     const Leaves: any = ComponentMaps.getMap(obj.type);
     const index = getNearestNest(path);
     const label = Array.isArray(obj.label) ? obj.label[index] : obj.label;
     const defaultValue = Array.isArray(obj.defaultValue)
       ? obj.defaultValue[index]
       : obj.defaultValue;
-    result[obj.name] = defaultValue;
-    // this.setValue(obj.defaultValue,path);
+    if (!result[obj.name]) {
+      result[obj.name] = defaultValue;
+    }
     return (
       <Field
         key={path}
@@ -73,7 +73,7 @@ export default class Core extends React.PureComponent<CoreProps> {
         label={label}
         model={obj.name}
         absolutePath={path}
-        value={value || defaultValue}
+        value={(this.state && getValueByModel(path, this.state)) || ""}
       >
         <Leaves />
       </Field>
@@ -82,7 +82,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 
   setValue = (val: any, path: string) => {
     this.setState(
-      (data) => setValueByModel(this.state || this.result, path, val),
+      (data) => setValueByModel(data, path, val),
       () => this.props.onChange(this.state),
     );
   };
@@ -133,7 +133,9 @@ export default class Core extends React.PureComponent<CoreProps> {
           );
         });
     } else {
-      result[obj.name] = {};
+      if (!result[obj.name]) {
+        result[obj.name] = {};
+      }
       return (
         <Fieldset model={model} absolutePath={`${path}`} key={path}>
           <Wapper>
@@ -156,7 +158,7 @@ export default class Core extends React.PureComponent<CoreProps> {
           result,
         );
       } else {
-        return this.getLeaves(item, realpath, "", result);
+        return this.getLeaves(item, realpath, result);
       }
     });
   };
