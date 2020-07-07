@@ -13,9 +13,9 @@ function App() {
 	return (
 		<div className="App">
 			<div style={{ flex: 1 }}>
-				<div style={{ height: "100%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }} contentEditable={true}>
+				<pre suppressContentEditableWarning={true} contentEditable={true} style={{ height: "100%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>
 					{JSON.stringify(state, null, 2)}
-				</div>
+				</pre>
 			</div>
 			<div style={{ flex: 1 }}>
 				<Core onChange={setState} dictionary={dictionary} />

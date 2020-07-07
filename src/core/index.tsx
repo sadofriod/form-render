@@ -40,9 +40,13 @@ interface CoreProps {
 	onChange?: any; //custom event
 }
 
+const getRealValue = (value: string) => {};
+
 export default class Core extends React.PureComponent<CoreProps> {
 	componentDidMount() {
 		// const { dictionary } = this.props;
+		// console.log(this.result);
+		this.props.onChange(this.result);
 	}
 	// componentDidUpdate(prevStat: any) {
 	// 	console.log(prevStat);
@@ -59,7 +63,8 @@ export default class Core extends React.PureComponent<CoreProps> {
 		const index = getNearestNest(path);
 		const label = Array.isArray(obj.label) ? obj.label[index] : obj.label;
 		const defaultValue = Array.isArray(obj.defaultValue) ? obj.defaultValue[index] : obj.label;
-		result[obj.name] = value;
+		result[obj.name] = defaultValue;
+		// this.setValue(obj.defaultValue,path);
 		return (
 			<Field key={path} {...obj.props} setValue={(val: any) => this.setValue(val, path)} label={label} model={obj.name} absolutePath={path} value={value || defaultValue}>
 				<Leaves />
@@ -69,7 +74,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 
 	setValue = (val: any, path: string) => {
 		this.setState(
-			(data) => setValueByModel(this.result, path, val),
+			(data) => setValueByModel(this.state || this.result, path, val),
 			() => this.props.onChange(this.state)
 		);
 	};
@@ -90,7 +95,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 				.fill(0)
 				.map((item, index) => {
 					if (!Array.isArray(result[obj.name])) {
-						result[obj.name] = [];
+						result[obj.name] = [{}];
 					} else {
 						if (!result[obj.name][index]) {
 							result[obj.name][index] = {};
