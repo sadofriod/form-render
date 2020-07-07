@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/** @format */
+
+import React, { useState } from "react";
+// import logo from './logo.svg';
+import "./App.css";
+import dictionary from "./dictionary";
+import Core from "./core";
+
+// const generator = new Core(dictionary, getNode, getSubGraph);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [state, setState] = useState<any>();
+	return (
+		<div className="App">
+			<div style={{ flex: 1 }}>
+				<pre suppressContentEditableWarning={true} contentEditable={true} style={{ height: "100%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>
+					{JSON.stringify(state, null, 2)}
+				</pre>
+			</div>
+			<div style={{ flex: 1 }}>
+				<Core onChange={setState} dictionary={dictionary} />
+			</div>
+		</div>
+	);
 }
 
 export default App;

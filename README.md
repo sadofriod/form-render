@@ -1,46 +1,68 @@
 <!-- @format -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# milestone
 
-## Available Scripts
+Base usage is done
 
-In the project directory, you can run:
+# Form Render development progress
 
-### `yarn start`
+- [ ] render core pure function(progressing 95%)
+  - [x] render node type identify
+  - [x] core main recursion method
+    - [x] proxy parameter
+    - [x] resolve nested
+  - [x] method: get real path
+  - [x] method: get real path
+  - [x] method: get value by path
+  - [ ] method: set value by path
+  - [x] method: generate initial result set
+  - [ ] method: Trigger custom logic by data that be marked the path
+- [x] render core component(no started)
+  - [x] get node components
+  - [x] get sub-group components
+- [x] custom component register center
+- [ ] example base components package (no started)
+  - [x] text input
+  - [ ] number input
+  - [ ] date picker
+  - [ ] color picker
+  - [ ] radio & radio group
+  - [ ] select
+  - [ ] text area
+  - [ ] Collapse-object
+  - [ ] Dynamic form item
+  - [ ] control decorator
+  - [ ] un-control decorator
+- [ ] example component progress (no started)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Folder description
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```shell
+├── src
+│   ├── component            					# common component & default form ui
+│   │   ├── common										# common component
+│   │   │   ├── Fieldset.tsx					# Proxy multi-item value
+│   │   │   └── Field.tsx							# Proxy form item value
+│   │   └── ui											  # default ui
+│   │       ├── Default.tsx
+│   │       └── TextInput.tsx
+│   ├── core
+│   │   ├── componentRegister.ts			# custom ui component register center
+│   │   └── index.tsx								  # form generate
+│   ├── dictionary									  # form dictionary
+│   │   └── index.ts
+│   ├── example											  # usage show
+│   │   └── index.ts
+│   ├── index.css
+│   ├── index.tsx
+│   ├── logo.svg
+│   ├── react-app-env.d.ts
+│   ├── serviceWorker.ts
+│   ├── setupTests.ts
+│   ├── __test											  # test case
+│   │   └── dictionary.ts
+│   └── @types
+│       ├── baseComponent.d.ts				# global type define
+│       ├── core.ts
+│       └── lib.d.ts
+```
