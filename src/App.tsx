@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import "./App.css";
 import dictionary from "./dictionary";
 import Core from "./core";
+import Editor from "./component/editor";
 
 // const generator = new Core(dictionary, getNode, getSubGraph);
 
@@ -16,11 +17,11 @@ const initValue = {
 		voke: [
 			{
 				rootName: "n",
-				pip: "start",
+				// pip: "start",
 			},
 			{
 				rootName: "yssdsasdadsd",
-				pip: "end",
+				// pip: "end",
 			},
 			{
 				rootName: "y",
@@ -38,17 +39,18 @@ function App() {
 	return (
 		<div className="App">
 			<div className="left">
+				<h3>可选表单组件</h3>
+				<Editor setDic={setDic} />
+			</div>
+			<div className="center">
+				<h3>表单结构预览</h3>
+				<Core onChange={setState} dictionary={dic} />
+			</div>
+			<div className="right">
 				<h3>结果集</h3>
 				<pre suppressContentEditableWarning={true} contentEditable={true} style={{ height: "100%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>
 					{JSON.stringify(state, null, 2)}
 				</pre>
-			</div>
-			<div className="center">
-				<h3>表单结构预览</h3>
-				<Core onChange={setState} value={initValue} dictionary={dic} />
-			</div>
-			<div className="right">
-				<h3>可选表单组件</h3>
 			</div>
 		</div>
 	);

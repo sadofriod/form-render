@@ -75,26 +75,26 @@ const testDic: IDictionary[] = [
 							},
 						},
 					},
-					{
-						name: "pip",
-						type: "Text",
-						label: ["start", "end"],
-						defaultValue: ["start", "end"],
-						props: {
-							mapProps: {
-								option: [
-									{
-										key: 1,
-										value: "Yes",
-									},
-									{
-										key: 0,
-										value: "No",
-									},
-								],
-							},
-						},
-					},
+					// {
+					// 	name: "pip",
+					// 	type: "Text",
+					// 	label: ["start", "end"],
+					// 	defaultValue: ["start", "end"],
+					// 	props: {
+					// 		mapProps: {
+					// 			option: [
+					// 				{
+					// 					key: 1,
+					// 					value: "Yes",
+					// 				},
+					// 				{
+					// 					key: 0,
+					// 					value: "No",
+					// 				},
+					// 			],
+					// 		},
+					// 	},
+					// },
 				],
 			},
 		],

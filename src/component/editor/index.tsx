@@ -1,6 +1,34 @@
 import React from "react";
-// import {Collapse} from '@blueprintjs/core';
+import { Button, Collapse } from "@blueprintjs/core";
 
-const componentList = [{}];
+const componentList: { [key: string]: string[] } = {
+	normal: ["Text"],
+	parent: ["Default"],
+};
 
-const EditorList = () => {};
+type EditorListType = React.SFC<{
+	setDic: any;
+}>;
+
+const EditorList: EditorListType = (props) => {
+	const handelClick = (parentName: string, formItemName: string) => {};
+
+	const renderFormItem = (item: string[]) => {
+		return item.map((formItemName, index) => {
+			return <Button key={index}>{formItemName}</Button>;
+		});
+	};
+	const formParentNames = Object.keys(componentList);
+	return (
+		<>
+			{formParentNames.map((item) => (
+				<div key={item}>
+					<h4>{item}</h4>
+					<Collapse isOpen={true}>{renderFormItem(componentList[item])}</Collapse>
+				</div>
+			))}
+		</>
+	);
+};
+
+export default EditorList;
