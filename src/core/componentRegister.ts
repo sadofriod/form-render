@@ -2,13 +2,14 @@
 
 import Text from "../component/ui/TextInput";
 import Default from "../component/ui/Default";
+import withFormItem from "../component/editor/withFormItem";
 
 class ComponentRegister {
 	private componentsMap: {
 		[key: string]: React.ReactNode;
 	} = {
-		Text: Text,
-		Default: Default,
+		Text: withFormItem(Text),
+		Default: withFormItem(Default),
 	};
 	register = (maps: { [key: string]: React.ReactNode }) => {
 		Object.assign(this.componentsMap, maps);

@@ -8,6 +8,7 @@ const componentList: { [key: string]: string[] } = {
 
 type EditorListType = React.SFC<{
 	setDic: any;
+	createNewFormItem: any;
 }>;
 
 const EditorList: EditorListType = (props) => {
@@ -15,7 +16,11 @@ const EditorList: EditorListType = (props) => {
 
 	const renderFormItem = (item: string[]) => {
 		return item.map((formItemName, index) => {
-			return <Button key={index}>{formItemName}</Button>;
+			return (
+				<Button onClick={props.createNewFormItem} key={index}>
+					{formItemName}
+				</Button>
+			);
 		});
 	};
 	const formParentNames = Object.keys(componentList);

@@ -40,12 +40,14 @@ interface CoreProps {
 	dictionary: IDictionary[]; // Form dictionary
 	onChange?: any; //custom event
 	value?: any;
+	setPath?: any;
 }
 
 export default class Core extends React.PureComponent<CoreProps> {
 	componentDidMount() {
 		this.setState(this.result);
-		this.props.onChange(this.result);
+
+		this.props.onChange && this.props.onChange(this.result);
 	}
 
 	result: any = Object.freeze(this.props.value) || {};
@@ -59,7 +61,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 		const Leaves: any = ComponentMaps.getMap(obj.type);
 		const index = getNearestNest(path);
 		const label = Array.isArray(obj.label) ? obj.label[index] : obj.label;
-		const defaultValue = Array.isArray(obj.defaultValue) ? obj.defaultValue[index] : obj.label;
+		const defaultValue = Array.isArray(obj.defaultValue) ? obj.defaultValue[index] : obj.defaultValue;
 		if (!result[obj.name]) result[obj.name] = defaultValue;
 		return (
 			<Field
@@ -69,6 +71,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 				label={label}
 				model={obj.name}
 				absolutePath={path}
+				setPath={this.props.setPath}
 				value={(this.state && getValueByModel(path, this.state)) || ""}
 			>
 				<Leaves />
@@ -106,7 +109,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 						}
 					}
 					return (
-						<Fieldset model={model} key={index} absolutePath={`${path}[${index}]`}>
+						<Fieldset setPath={this.props.setPath} model={model} key={index} absolutePath={`${path}[${index}]`}>
 							<Wapper>{recursionMain(children, `${path}[${index}]`, level, result[obj.name][index] || {})}</Wapper>
 						</Fieldset>
 					);
@@ -116,7 +119,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 				result[obj.name] = {};
 			}
 			return (
-				<Fieldset model={model} absolutePath={`${path}`} key={path}>
+				<Fieldset model={model} setPath={this.props.setPath} absolutePath={`${path}`} key={path}>
 					<Wapper>{recursionMain(children, `${path}`, level, result[obj.name])}</Wapper>
 				</Fieldset>
 			);
