@@ -5,7 +5,7 @@ import { InputGroup as Text } from "@blueprintjs/core";
 
 interface Props extends BaseComponent {}
 
-const TextInput: React.SFC<Props> = (props) => {
+const TextInput: React.FC<Props> = (props) => {
 	const { value, label, onChange } = props;
 
 	return (

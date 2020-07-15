@@ -21,18 +21,16 @@ Base usage is done
   - [x] get node components
   - [x] get sub-group components
 - [x] custom component register center
-- [ ] example base components package (no started)
+- [ ] example base components package (progressing 80%)
   - [x] text input
-  - [ ] number input
-  - [ ] date picker
+  - [x] number input
+  - [x] date picker
   - [ ] color picker
-  - [ ] radio & radio group
-  - [ ] select
-  - [ ] text area
-  - [ ] Collapse-object
+  - [x] radio & radio group
+  - [x] select
+  - [x] text area
+  - [x] Collapse-object
   - [ ] Dynamic form item
-  - [ ] control decorator
-  - [ ] un-control decorator
 - [ ] example component progress (no started)
 
 # Folder description
