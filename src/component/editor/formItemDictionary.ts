@@ -12,20 +12,12 @@ const testDic: IDictionary[] = [
 		type: "Text",
 		label: "form item component",
 		defaultValue: "Text",
-		props: {
-			mapProps: {
-				option: [
-					{
-						key: 1,
-						value: "boy",
-					},
-					{
-						key: 0,
-						value: "girl",
-					},
-				],
-			},
-		},
+	},
+	{
+		name: "model",
+		type: "Text",
+		label: "form item component",
+		defaultValue: "Text",
 	},
 	{
 		name: "label",

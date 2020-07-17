@@ -9,29 +9,39 @@ interface Props {
 	isOpen: boolean;
 	path: string;
 	setDic: any;
+	compType?: keyof IDictionaryType;
+	setOpen?: any;
 }
 
 const NewFormItemDialog: React.FC<Props> = (props) => {
-	const { dictionary, isOpen, path, setDic } = props;
+	const { dictionary, isOpen, path, setDic, compType, setOpen } = props;
 	const [config, setConfig] = useState<IDictionary>();
 	const handleConfirm = () => {
 		if (config) {
 			const result = Object.assign([], dictionary);
 			setDictionaryByModel(result, path, config);
-			console.log(result);
-
+			setOpen(false);
 			setDic(result);
 		}
 	};
+	const initValue = {
+		type: compType,
+	};
+	console.log(compType);
+
+	// setDictionaryByModel(formItemDictionary, "type", {
+	// 	name: "type",
+	// 	type: compType || "Text",
+	// 	label: "form item component",
+	// 	defaultValue: "Text",
+	// });
+	// console.log(formItemDictionary);
 
 	return (
-		<Dialog
-			isOpen={isOpen}
-			// onClose={() => setOpen(false)}
-		>
-			<Core onChange={setConfig} dictionary={formItemDictionary} />
+		<Dialog className="new-component-dialog" isOpen={isOpen} onClose={() => setOpen(false)}>
+			<Core onChange={setConfig} value={initValue} dictionary={formItemDictionary} />
 			<Button onClick={handleConfirm}>Confirm</Button>
-			<Button>Conceal</Button>
+			<Button onClick={() => setOpen(false)}>Conceal</Button>
 		</Dialog>
 	);
 };

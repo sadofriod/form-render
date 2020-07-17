@@ -1,9 +1,10 @@
 import React from "react";
 import { Button, Collapse } from "@blueprintjs/core";
+import "./style.css";
 
 const componentList: { [key: string]: string[] } = {
-	normal: ["Text"],
-	parent: ["Default"],
+	normal: ["Text", "Select", "Radio"],
+	parent: ["Default", "RadioGroup"],
 };
 
 type EditorListType = React.SFC<{
@@ -17,7 +18,7 @@ const EditorList: EditorListType = (props) => {
 	const renderFormItem = (item: string[]) => {
 		return item.map((formItemName, index) => {
 			return (
-				<Button onClick={props.createNewFormItem} key={index}>
+				<Button onClick={() => props.createNewFormItem(formItemName)} key={index}>
 					{formItemName}
 				</Button>
 			);

@@ -50,7 +50,7 @@ export default class Core extends React.PureComponent<CoreProps> {
 		this.props.onChange && this.props.onChange(this.result);
 	}
 
-	result: any = Object.freeze(this.props.value) || {};
+	result: any = this.props.value || {};
 	/**
 	 * When dictionary children isn't array,use it
 	 * @param obj sub form dictionary

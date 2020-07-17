@@ -39,12 +39,19 @@ function App() {
 	const [dic, setDic] = useState<IDictionary[]>(dictionary);
 	const [isOpen, setOpen] = useState(false);
 	const [path, setPath] = useState(".root");
+	const [componentType, setComponentType] = useState<keyof IDictionaryType>();
 
 	return (
 		<div className="App">
 			<div className="left">
 				<h3>可选表单组件</h3>
-				<Editor setDic={setDic} createNewFormItem={() => setOpen(true)} />
+				<Editor
+					setDic={setDic}
+					createNewFormItem={(val: keyof IDictionaryType) => {
+						setOpen(true);
+						setComponentType(val);
+					}}
+				/>
 			</div>
 			<div className="center">
 				<h3>表单结构预览</h3>
@@ -59,11 +66,13 @@ function App() {
 			</div>
 			<div className="right">
 				<h3>结果集</h3>
-				<pre suppressContentEditableWarning={true} contentEditable={true} style={{ height: "100%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>
+				<pre suppressContentEditableWarning={true} contentEditable={true} style={{ overflow: "auto", height: "40%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>
 					{JSON.stringify(state, null, 2)}
 				</pre>
+				<h3>字典</h3>
+				<pre style={{ overflow: "auto", height: "40%", width: "100%", textAlign: "left", padding: "5px", border: "2px solid #000" }}>{JSON.stringify(state, null, 2)}</pre>
 			</div>
-			<NewFormItemDialog dictionary={dic} isOpen={isOpen} setDic={setDic} path={path} />
+			<NewFormItemDialog compType={componentType} setOpen={setOpen} dictionary={dic} isOpen={isOpen} setDic={setDic} path={path} />
 		</div>
 	);
 }

@@ -2,3 +2,8 @@
   height: 100%;
   width: 100%;
 }
+.new-component-dialog{
+  padding: 10px 15px;
+  background-color: #222;
+  color: #fff;
+}
