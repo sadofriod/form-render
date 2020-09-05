@@ -42,13 +42,8 @@ interface CoreProps {
 
 export default class Core extends React.PureComponent<CoreProps> {
   componentDidMount() {
-    // const { dictionary } = this.props;
-    // console.log(this.result);
     this.props.onChange(this.result);
   }
-  // componentDidUpdate(prevStat: any) {
-  // 	console.log(prevStat);
-  // }
   result: any = {};
   /**
    * When dictionary children isn't array,use it
@@ -143,6 +138,14 @@ export default class Core extends React.PureComponent<CoreProps> {
       );
     }
   };
+
+  /**
+   * Recursion entry
+   * @param obj dictionary
+   * @param path current level node path
+   * @param level recursion level
+   * @param result result map
+   */
   recursionMain: RecursionMain = (obj, path, level, result) => {
     level++;
     return obj.map((item, index) => {

@@ -29,6 +29,12 @@ interface IDictionaryType extends IFormComponentDictionary {
   // [key: string]: React.ReactNode;
 }
 
+declare interface HandleLabel {
+  (relativePath, absolutePath, value, resultSet): string;
+}
+
+declare type LabelType = string | string[] | HandleLabel;
+
 /**Dictionary node description
  * @member name Generate the corresponding key of the target object
  * @member type The component corresponding to this node
@@ -41,14 +47,12 @@ interface IDictionaryType extends IFormComponentDictionary {
 declare interface IDictionary {
   name: string;
   type: keyof IDictionaryType;
-  label?: string | string[];
+  model?: string;
+  label?: LabelType;
   props?: {
     ref?: React.ForwardRefExoticComponent<React.RefAttributes<unknown>>;
     ownStruct?: IDictionary;
     value?: any;
-    // option?: Array<{
-    // 	[keys: string]: string | number;
-    // }>;
     mapProps?: {
       [key: string]: any;
     };
@@ -57,4 +61,15 @@ declare interface IDictionary {
   defaultValue?: any;
   children?: IDictionary[];
   changeByModel?: IChangeModel;
+  changeAction?(model: string, value: any): void;
+  verification?(value): boolean;
+  uiHook?: {
+    custom?(ref: React.RefObject<unknown>, callback): void;
+    hidden?(value): void;
+    display?(value): void;
+    distroy?(value): void;
+    onFocus?(value): void;
+    onBlur?(value): void;
+    onClick?(value): void;
+  };
 }
