@@ -7,33 +7,6 @@ import dictionary from "./dictionary";
 import Core from "./core";
 import Editor from "./component/editor";
 import NewFormItemDialog from "./component/editor/newFormItemDialog";
-// import formRender from ''
-
-// const generator = new Core(dictionary, getNode, getSubGraph);
-
-// const initValue = {
-// 	root: {
-// 		name: "user name",
-// 		sex: "user sex",
-// 		password: "password1111232123222233333333",
-// 		voke: [
-// 			{
-// 				rootName: "n",
-// 				// pip: "start",
-// 			},
-// 			{
-// 				rootName: "yssdsasdadsd",
-// 				// pip: "end",
-// 			},
-// 			{
-// 				rootName: "y",
-// 			},
-// 			{
-// 				rootName: "n",
-// 			},
-// 		],
-// 	},
-// };
 
 function App() {
   const [state, setState] = useState<any>();
