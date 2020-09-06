@@ -4,7 +4,7 @@ declare interface BaseComponent {
   model: string;
   absolutePath: string;
   value?: any;
-  label?: string;
+  label?: LabelType;
   onChange?: any;
 }
 
