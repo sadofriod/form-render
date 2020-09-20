@@ -1,9 +1,14 @@
+/** @format */
+
 .comp-list-container {
   height: 100%;
   width: 100%;
 }
-.new-component-dialog{
+.new-component-dialog {
   padding: 10px 15px;
   background-color: #222;
   color: #fff;
+}
+.active-component {
+  background-color: rgba(34, 34, 34, 0.25);
 }

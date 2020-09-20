@@ -5,6 +5,7 @@ import formatPath from "./formatPath";
 const setValueByModel = (obj: any, path: string, value: any) => {
   const realPath = formatPath(path).split(".");
   const reg = /\[\S*\]/;
+
   return produce(obj, (obj: any) => {
     realPath.forEach((item, index) => {
       if (obj && item in obj) {
@@ -20,6 +21,8 @@ const setValueByModel = (obj: any, path: string, value: any) => {
             } else {
               obj = {};
             }
+          } else {
+            obj = obj[item];
           }
         }
       }

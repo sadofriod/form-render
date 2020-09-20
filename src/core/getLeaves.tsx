@@ -11,6 +11,32 @@ interface GetLeaves {
 }
 
 /**
+ *
+ * @param lable dictionary node label
+ * @param relativePath dictionary node relative path
+ * @param absolutePath dictionary node absolute path that from dictionary toplest
+ * @param value
+ * @param resultSet
+ * @param index
+ */
+const getRealLabel = (
+  relativePath: string,
+  absolutePath: string,
+  value: any,
+  resultSet: any,
+  index: number,
+  lable?: LabelType,
+) => {
+  if (typeof lable === "function") {
+    lable(relativePath, absolutePath, value, resultSet);
+  } else if (Array.isArray(lable)) {
+    return lable[index];
+  } else {
+    return lable;
+  }
+};
+
+/**
  * When dictionary children isn't array,use it
  * @param obj sub form dictionary
  * @param path A absoulte path from current recursion stack without model;
@@ -19,7 +45,8 @@ interface GetLeaves {
 const getLeaves: GetLeaves = function (this, obj, path, result) {
   const Leaves: any = ComponentMaps.getMap(obj.type);
   const index = getNearestNest(path);
-  const label = Array.isArray(obj.label) ? obj.label[index] : obj.label;
+  const value = (this.state && getValueByModel(path, this.state)) || "";
+  const label = getRealLabel(obj.name, path, value, result, index, obj.label);
   const defaultValue = Array.isArray(obj.defaultValue)
     ? obj.defaultValue[index]
     : obj.defaultValue;

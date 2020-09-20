@@ -30,7 +30,12 @@ interface IDictionaryType extends IFormComponentDictionary {
 }
 
 declare interface HandleLabel {
-  (relativePath, absolutePath, value, resultSet): string;
+  (
+    relativePath: string,
+    absolutePath: string,
+    value: any,
+    resultSet: string,
+  ): string;
 }
 
 declare type LabelType = string | string[] | HandleLabel;
@@ -64,7 +69,7 @@ declare interface IDictionary {
   changeAction?(model: string, value: any): void;
   verification?(value): boolean;
   uiHook?: {
-    custom?(ref: React.RefObject<unknown>, callback): void;
+    custom?(ref: HTMLElement, callback): void;
     hidden?(value): void;
     display?(value): void;
     distroy?(value): void;

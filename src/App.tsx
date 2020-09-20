@@ -1,13 +1,11 @@
 /** @format */
 
-import React, { useState } from "react";
-// import logo from './logo.svg';
+import React, { useState, MouseEvent } from "react";
 import "./App.css";
 import dictionary from "./dictionary";
 import FormRender from "./core";
 import Editor from "./component/editor";
 import NewFormItemDialog from "./component/editor/newFormItemDialog";
-// import FormRender from "../../form-render/src/core";
 
 function App() {
   const [state, setState] = useState<any>();
@@ -19,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <div className="left">
-        <h3>可选表单组件</h3>
+        <h3>Form Item</h3>
         <Editor
           setDic={setDic}
           createNewFormItem={(val: keyof IDictionaryType) => {
@@ -29,7 +27,7 @@ function App() {
         />
       </div>
       <div className="center">
-        <h3>表单结构预览</h3>
+        <h3>Preview form ui struct</h3>
         <h4 style={{ textAlign: "left" }}>当前路径：{path}</h4>
         <FormRender
           setPath={(val: string) => {
@@ -37,13 +35,23 @@ function App() {
           }}
           onChange={setState}
           dictionary={dic}
+          value={state}
         />
       </div>
       <div className="right">
-        <h3>结果集</h3>
+        <h3>result set</h3>
         <pre
           suppressContentEditableWarning={true}
           contentEditable={true}
+          onChange={(e: any) => {
+            try {
+              console.log(JSON.parse(e.target.value));
+
+              setState(JSON.parse(e.target.value));
+            } catch (error) {
+              console.warn("struct was warning");
+            }
+          }}
           style={{
             overflow: "auto",
             height: "40%",
@@ -55,7 +63,7 @@ function App() {
         >
           {JSON.stringify(state, null, 2)}
         </pre>
-        <h3>字典</h3>
+        <h3>dictionary</h3>
         <pre
           style={{
             overflow: "auto",

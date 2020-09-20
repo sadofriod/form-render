@@ -27,14 +27,13 @@ interface CoreProps {
   getDataTime?: "change" | "blur"; //Getting updated data when time equal the value
   dictionary: IDictionary[]; // Form dictionary
   onChange?: any; //custom event
-  value?: any;
+  value?: any; //initail result
   setPath?: any;
 }
 
 export default class Core extends React.PureComponent<CoreProps> {
   componentDidMount() {
     this.setState(this.result);
-
     this.props.onChange && this.props.onChange(this.result);
   }
 
@@ -65,6 +64,7 @@ export default class Core extends React.PureComponent<CoreProps> {
       }
     });
   };
+
   render() {
     const { dictionary } = this.props;
     return <>{this.recursionMain(dictionary, "", 0, this.result)}</>;
