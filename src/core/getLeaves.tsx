@@ -11,7 +11,7 @@ interface GetLeaves {
 }
 
 /**
- *
+ *  handle label value
  * @param lable dictionary node label
  * @param relativePath dictionary node relative path
  * @param absolutePath dictionary node absolute path that from dictionary toplest
@@ -25,14 +25,14 @@ const getRealLabel = (
   value: any,
   resultSet: any,
   index: number,
-  lable?: LabelType,
+  label?: LabelType,
 ) => {
-  if (typeof lable === "function") {
-    lable(relativePath, absolutePath, value, resultSet);
-  } else if (Array.isArray(lable)) {
-    return lable[index];
+  if (typeof label === "function") {
+    label(relativePath, absolutePath, value, resultSet);
+  } else if (Array.isArray(label)) {
+    return label[index];
   } else {
-    return lable;
+    return label;
   }
 };
 
