@@ -4,9 +4,10 @@ import React, { useState } from "react";
 // import logo from './logo.svg';
 import "./App.css";
 import dictionary from "./dictionary";
-import Core from "./core";
+import FormRender from "./core";
 import Editor from "./component/editor";
 import NewFormItemDialog from "./component/editor/newFormItemDialog";
+// import FormRender from "../../form-render/src/core";
 
 function App() {
   const [state, setState] = useState<any>();
@@ -30,7 +31,7 @@ function App() {
       <div className="center">
         <h3>表单结构预览</h3>
         <h4 style={{ textAlign: "left" }}>当前路径：{path}</h4>
-        <Core
+        <FormRender
           setPath={(val: string) => {
             setPath(val);
           }}
