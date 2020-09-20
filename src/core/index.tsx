@@ -11,6 +11,7 @@ import getLeaves from "./getLeaves";
  * @param model model (sub dictionary name)
  */
 const getRealPath = (path: string, level: number, model: string) => {
+  //TODO: use dictionary model to generator path
   const pathArr = path.split(".");
   let result = "";
   if (pathArr.length - 1 === level) {
