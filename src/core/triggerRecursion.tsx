@@ -20,7 +20,7 @@ const getWapper = (obj: IDictionary): any => {
  * @param path A absoulte path from current recursion stack without model
  * @param level recursion level
  */
-const triggerRecursion = (obj: IDictionary, recursionMain: RecursionMain, path: string, level: number, result: any, setPath: any) => {
+const triggerRecursion = (obj: IDictionary, recursionMain: RecursionMain, path: string, level: number, result: any) => {
 	const model = obj.name;
 	const Wapper = getWapper(obj);
 	const children = obj.children || [];
@@ -36,7 +36,7 @@ const triggerRecursion = (obj: IDictionary, recursionMain: RecursionMain, path: 
 					}
 				}
 				return (
-					<Fieldset setPath={setPath} model={model} key={index} absolutePath={`${path}[${index}]`}>
+					<Fieldset model={model} key={index} absolutePath={`${path}[${index}]`}>
 						<Wapper>{recursionMain(children, `${path}[${index}]`, level, result[obj.name][index] || {})}</Wapper>
 					</Fieldset>
 				);
@@ -46,7 +46,7 @@ const triggerRecursion = (obj: IDictionary, recursionMain: RecursionMain, path: 
 			result[obj.name] = {};
 		}
 		return (
-			<Fieldset model={model} setPath={setPath} absolutePath={`${path}`} key={path}>
+			<Fieldset model={model} absolutePath={`${path}`} key={path}>
 				<Wapper>{recursionMain(children, `${path}`, level, result[obj.name])}</Wapper>
 			</Fieldset>
 		);

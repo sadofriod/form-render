@@ -13,8 +13,6 @@ type EditorListType = React.SFC<{
 }>;
 
 const EditorList: EditorListType = (props) => {
-	const handelClick = (parentName: string, formItemName: string) => {};
-
 	const renderFormItem = (item: string[]) => {
 		return item.map((formItemName, index) => {
 			return (

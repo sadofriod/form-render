@@ -1,0 +1,1 @@
+export const SET_INSERT_PATH = "SET_INSERT_PATH";
