@@ -1,6 +1,7 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
+import MonacoEditor, { EditorDidMount } from 'react-monaco-editor';
 import "./App.css";
 import dictionary from "./dictionary";
 import FormRender from "./core";
@@ -15,6 +16,12 @@ function App(props: any) {
 	// const [path, setPath] = useState(".root");
 	const { path } = props;
 	const [componentType, setComponentType] = useState<keyof IDictionaryType>();
+
+	const editor = createRef<MonacoEditor>()
+
+	const editorDidMountHandle: EditorDidMount = (e) => {
+		e.trigger('', 'editor.action.formatDocument', ''); 
+	}
 
 	return (
 		<div className="App">
@@ -33,29 +40,29 @@ function App(props: any) {
 				<h4 style={{ textAlign: "left" }}>当前路径：{path}</h4>
 				<FormRender onChange={setState} dictionary={dic} value={state} />
 			</div>
-			<div className="right">
+			<div className="right" style={{textAlign: "left"}}>
 				<h3>result set</h3>
-				<pre
-					suppressContentEditableWarning={true}
-					contentEditable={true}
-					onChange={(e: any) => {
+				<MonacoEditor
+				    ref={editor}
+					width="100%"
+					height="40%"
+					language="javascript"
+					theme="vs-light"
+					value={JSON.stringify(state, null, 2)}
+					options={{
+						selectOnLineNumbers: true
+					}}
+					onChange={(v: string) => {
 						try {
-							setState(JSON.parse(e.target.value));
+							if (JSON.stringify(state)!=v){
+								setState(JSON.parse(v));
+							}
 						} catch (error) {
 							console.warn("struct was warning");
 						}
 					}}
-					style={{
-						overflow: "auto",
-						height: "40%",
-						width: "100%",
-						textAlign: "left",
-						padding: "5px",
-						border: "2px solid #000",
-					}}
-				>
-					{JSON.stringify(state, null, 2)}
-				</pre>
+					editorDidMount={editorDidMountHandle}
+				/>
 				<h3>dictionary</h3>
 				<pre
 					style={{
