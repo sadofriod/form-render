@@ -45,7 +45,7 @@ const getLeaves: GetLeaves = function (this, obj, path, result) {
 	return (
 		<Field
 			key={path}
-			{...obj.props}
+			fieldProps={obj.props}
 			setValue={(val: any) => this.setValue(val, path)}
 			label={label}
 			model={obj.name}

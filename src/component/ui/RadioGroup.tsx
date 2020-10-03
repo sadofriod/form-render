@@ -8,7 +8,7 @@ export interface IRadioGroupProps extends BaseComponent {
 }
 
 export const RadioGroup: React.FunctionComponent<IRadioGroupProps> = (props) => {
-	const { children, model, absolutePath } = props;
+	const { children } = props;
 
 	const [disabled, setDisabled] = useState<boolean>(props.disabled);
 	//TODO: Children component type verfiy

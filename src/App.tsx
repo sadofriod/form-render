@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, createRef } from "react";
-import MonacoEditor, { EditorDidMount } from 'react-monaco-editor';
+import MonacoEditor, { EditorDidMount } from "react-monaco-editor";
 import "./App.css";
 import dictionary from "./dictionary";
 import FormRender from "./core";
@@ -13,15 +13,14 @@ function App(props: any) {
 	const [state, setState] = useState<any>();
 	const [dic, setDic] = useState<IDictionary[]>(dictionary);
 	const [isOpen, setOpen] = useState(false);
-	// const [path, setPath] = useState(".root");
 	const { path } = props;
 	const [componentType, setComponentType] = useState<keyof IDictionaryType>();
-
-	const editor = createRef<MonacoEditor>()
+	const resultSetRef = createRef<MonacoEditor>();
+	const dictionaryRef = createRef<MonacoEditor>();
 
 	const editorDidMountHandle: EditorDidMount = (e) => {
-		e.trigger('', 'editor.action.formatDocument', ''); 
-	}
+		e.trigger("", "editor.action.formatDocument", "");
+	};
 
 	return (
 		<div className="App">
@@ -40,21 +39,21 @@ function App(props: any) {
 				<h4 style={{ textAlign: "left" }}>当前路径：{path}</h4>
 				<FormRender onChange={setState} dictionary={dic} value={state} />
 			</div>
-			<div className="right" style={{textAlign: "left"}}>
+			<div className="right" style={{ textAlign: "left" }}>
 				<h3>result set</h3>
 				<MonacoEditor
-				    ref={editor}
+					ref={resultSetRef}
 					width="100%"
 					height="40%"
 					language="javascript"
 					theme="vs-light"
 					value={JSON.stringify(state, null, 2)}
 					options={{
-						selectOnLineNumbers: true
+						selectOnLineNumbers: true,
 					}}
 					onChange={(v: string) => {
 						try {
-							if (JSON.stringify(state)!=v){
+							if (JSON.stringify(state) != v) {
 								setState(JSON.parse(v));
 							}
 						} catch (error) {
@@ -64,18 +63,17 @@ function App(props: any) {
 					editorDidMount={editorDidMountHandle}
 				/>
 				<h3>dictionary</h3>
-				<pre
-					style={{
-						overflow: "auto",
-						height: "40%",
-						width: "100%",
-						textAlign: "left",
-						padding: "5px",
-						border: "2px solid #000",
+				<MonacoEditor
+					ref={dictionaryRef}
+					width="100%"
+					height="40%"
+					language="javascript"
+					theme="vs-light"
+					value={JSON.stringify(dic, null, 2)}
+					options={{
+						selectOnLineNumbers: true,
 					}}
-				>
-					{JSON.stringify(dic, null, 2)}
-				</pre>
+				/>
 			</div>
 			<NewFormItemDialog compType={componentType} setOpen={setOpen} dictionary={dic} isOpen={isOpen} setDic={setDic} path={path} />
 		</div>

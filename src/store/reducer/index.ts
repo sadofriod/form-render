@@ -1,6 +1,7 @@
 import produce from "immer";
 import { SET_INSERT_PATH } from "../actions/actionConstant";
 import setIntsertPath from "./handle/setInserPath";
+import dictionary from "../../dictionary";
 
 const reducer = produce(
 	(
@@ -8,6 +9,7 @@ const reducer = produce(
 			form: {},
 			system: {
 				path: ".root",
+				dictionary: dictionary,
 			},
 		},
 		action: EditorStore.Action

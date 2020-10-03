@@ -1,46 +1,41 @@
 /** @format */
 
 import React, { ReactNode, useState } from "react";
-import { Button } from "@blueprintjs/core";
-import {
-  Select as BlSelect,
-  ISelectProps as IBlSelectProps,
-} from "@blueprintjs/select";
+import { Button, MenuItem } from "@blueprintjs/core";
+import { Select as BlSelect, ItemRenderer } from "@blueprintjs/select";
+
+interface Film {
+	key: string;
+	value: string;
+}
 
 /**
  * @param defineValue Render Model
  */
-export interface ISelectProps<T> extends BaseComponent {
-  items: Array<BaseComponent>;
-  defineValue: string;
-  disabled: boolean;
+export interface ISelectProps extends BaseComponent {
+	items: Film[];
+	onChange: any;
+	isDisable: boolean;
 }
 
-export const Select: ReactNode = (props: ISelectProps<BaseComponent>) => {
-  const { model, absolutePath } = props;
+const FilmSelect = BlSelect.ofType<Film>();
 
-  const [item, setItem] = useState();
+export const Select: ReactNode = (props: ISelectProps) => {
+	const { items, onChange, label, value, isDisable } = props;
+	console.log(items);
 
-  const [defineValue, setDinfineValue] = useState(props.defineValue);
+	const renderFilm: ItemRenderer<Film> = (film, { modifiers, handleClick }) => {
+		if (!modifiers.matchesPredicate) {
+			return null;
+		}
+		return <MenuItem active={modifiers.active} key={film.key.toString()} text={film.value} onClick={handleClick} shouldDismissPopover={false} />;
+	};
 
-  const [isDisable, setDisable] = useState(props.disabled);
+	const handleOnSelect = (film: Film) => {};
 
-  const BlSelectProps: IBlSelectProps<BaseComponent> = {
-    items: props.items,
-    itemRenderer: () => {
-      return null;
-    },
-    onItemSelect: () => {},
-  };
-
-  return (
-    <BlSelect {...BlSelectProps}>
-      <Button
-        icon="film"
-        rightIcon="caret-down"
-        text={item ? defineValue : "(No selection)"}
-        disabled={isDisable}
-      />
-    </BlSelect>
-  );
+	return (
+		<FilmSelect onItemSelect={handleOnSelect} itemRenderer={renderFilm} items={items}>
+			<Button icon="film" rightIcon="caret-down" text={value ? value : "(No selection)"} disabled={isDisable} />
+		</FilmSelect>
+	);
 };
